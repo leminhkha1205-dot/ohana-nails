@@ -12,7 +12,7 @@
 <div class="wrap">
   <div class="card">
     <h1>Nail SEO Metadata App</h1>
-    <p class="muted">Bản v7 có 2 tab: <b>Image SEO</b> và <b>Video SEO</b>. Chọn template salon, upload file, nhập Keywords cho từng file rồi tải file đã ghi metadata bằng ExifTool.</p>
+    <p class="muted">Bản v8 có 2 tab: <b>Image SEO</b> và <b>Video SEO</b>. Chọn template salon, upload file, nhập Keywords cho từng file rồi tải file đã ghi metadata bằng ExifTool.</p>
 
     <div class="selector">
       <label><b>Chọn template</b><select id="templateKey"><option value="ohana">Ohana Nails</option><option value="rainbow">Rainbow Nails</option></select></label>
@@ -45,8 +45,8 @@
 
     <section id="videoPanel" class="panel">
       <div class="drop"><input id="videoFiles" type="file" accept="video/quicktime,video/mp4,.mov,.mp4,.m4v" multiple /></div>
-      <p class="muted">Hỗ trợ MOV/MP4/M4V. App sẽ ghi QuickTime/XMP metadata: Title, Description, Keywords, Author, Copyright, GPS, Location, Rating.</p>
-      <p class="note small">Lưu ý: metadata video không hiển thị giống ảnh trong mọi phần mềm. Một số nền tảng mạng xã hội có thể xóa metadata khi upload.</p>
+      <p class="muted">Hỗ trợ upload MOV/MP4/M4V. Bản v8 sẽ xuất video về MP4 để Windows Properties đọc tốt hơn, đồng thời ghi Title, Subtitle, Tags, Comments, Author, Copyright, GPS, Location.</p>
+      <p class="note small">Lưu ý: Windows thường đọc metadata video tốt nhất với MP4. MOV có thể đã ghi metadata nhưng Windows Properties không hiện đầy đủ. Một số nền tảng mạng xã hội có thể xóa metadata khi upload.</p>
       <div id="videoList"></div>
       <button id="processVideos" class="btn" disabled>Ghi metadata video & tải về</button>
       <p id="videoStatus"></p>
@@ -104,7 +104,7 @@ function renderVideos(){
   videoFiles.forEach((file, i)=>{
     const url = URL.createObjectURL(file);
     const div = document.createElement('div'); div.className='item';
-    div.innerHTML = `<video src="${url}" controls muted></video><div><b>${escapeHtml(file.name)}</b><p class="muted">Template: <b>${escapeHtml(salonName)}</b>. Keywords cho video này, mỗi dòng hoặc cách nhau bằng dấu phẩy.</p>${fileKeywordsTextarea(i,'video')}<p class="muted">Tên file SEO sẽ tự lấy theo keyword đầu tiên và giữ đuôi .mov/.mp4.</p></div>`;
+    div.innerHTML = `<video src="${url}" controls muted></video><div><b>${escapeHtml(file.name)}</b><p class="muted">Template: <b>${escapeHtml(salonName)}</b>. Keywords cho video này, mỗi dòng hoặc cách nhau bằng dấu phẩy.</p>${fileKeywordsTextarea(i,'video')}<p class="muted">Tên file SEO sẽ tự lấy theo keyword đầu tiên. Video đầu ra sẽ là .mp4 để Windows hiển thị metadata tốt hơn.</p></div>`;
     videoListEl.appendChild(div);
   });
   processVideosBtn.disabled = videoFiles.length === 0;
